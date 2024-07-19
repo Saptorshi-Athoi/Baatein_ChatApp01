@@ -2,20 +2,66 @@ import User from "../models/userModel.js"
 import bcrypt from "bcryptjs"
 import generateTokenAndSetCookie from "../utils/generateToken.js"
 
-export const loginUser = (req,res) => {
-    res.send("Login User")
+export const loginUser = async (req,res) => {
+    try{
+        const {username, password} = req.body
+        // console.log(req.body.username)
+        const user = await User.findOne({username})
+
+        if (!user) {
+            return res.status(400).json({ error: "Invalid User" });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ error: "Invalid Password" });
+        }
+
+        // console.log(user.password)
+        
+        // if(!user) return res.status(400).json({error: "Invalid User"})
+        //     else{
+        //         const isPasswordCorrect = await bcrypt.compare(password, user.password || '') // user?.password checks if user is not null or undefined. If user exists, it accesses the password property. If user does not exist, it returns undefined.
+        //         // const isPasswordCorrect = await bcrypt.compare(passwrd, user?.password || '') // user?.password checks if user is not null or undefined. If user exists, it accesses the password property. If user does not exist, it returns undefined.
+        //         if(!isPasswordCorrect){
+        //             return res.status(400).json({error: "Invalid PassWord"})
+        //         }
+        // }
+
+
+        generateTokenAndSetCookie(user._id, res)
+
+        res.status(200).json({
+            message: "User Login Successfully",
+            _id: user._id,
+            fullname: user.fullname,
+            username: user.username,
+            profilePic: user.profilePic
+        })
+    }
+    catch(err){
+        console.log("Error in Login Controller", err)
+        res.status(500).json({
+            error: "internal server Error"
+        })
+    }
 }
 export const logoutUser = (req,res) => {
-    res.send("logout User")
+    try{
+        res.cookie("jwt", "", { maxAge:0})
+        res.status(200).json({Message : "User logged out successfully"})
+    }
+    catch(err){
+        console.log("Error in Logout Controller", err)
+        res.status(500).json({
+            error: "internal server Error"
+        })
+    }
 }
 
 export const signupUser = async (req,res) => {
-    // try{
-    //     res.json(req.body)
-
-    // }catch(err){
-    //     console.log(err.message)
-    // }
+  
     try{
         const {fullname, username, password, confirmpassword, gender} = req.body
         if(password != confirmpassword) return res.status(400).json({error: "Password didnt match"})
