@@ -18,18 +18,6 @@ export const loginUser = async (req,res) => {
             return res.status(400).json({ error: "Invalid Password" });
         }
 
-        // console.log(user.password)
-        
-        // if(!user) return res.status(400).json({error: "Invalid User"})
-        //     else{
-        //         const isPasswordCorrect = await bcrypt.compare(password, user.password || '') // user?.password checks if user is not null or undefined. If user exists, it accesses the password property. If user does not exist, it returns undefined.
-        //         // const isPasswordCorrect = await bcrypt.compare(passwrd, user?.password || '') // user?.password checks if user is not null or undefined. If user exists, it accesses the password property. If user does not exist, it returns undefined.
-        //         if(!isPasswordCorrect){
-        //             return res.status(400).json({error: "Invalid PassWord"})
-        //         }
-        // }
-
-
         generateTokenAndSetCookie(user._id, res)
 
         res.status(200).json({
