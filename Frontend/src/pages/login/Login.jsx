@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 const Login = () => {
   return (
-    <div className='flex items-center justify-center h-screen text-black'>
-        <div className='backdrop-blur-lg w-1/4 flex items-center flex-col rounded-md h-[44%] justify-center'>
+    
+        <div className='backdrop-blur-lg w-1/4 flex items-center flex-col rounded-md h-[44%] justify-center text-black'>
             <span className='text-5xl mb-6'>Login</span>
 
             <form action="" className='flex flex-col self-start w-full px-6 gap-3'>
@@ -20,7 +22,7 @@ const Login = () => {
                             <path
                             d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
                         </svg>
-                        <input type="text" className="grow text-blue" placeholder="Username" />
+                        <input type="text" className="grow text-blue" placeholder="Username" value={""}/>
                     </label>
 
                 </div>
@@ -46,16 +48,17 @@ const Login = () => {
                     </label>
                 </div>
 
-                <a href="#" ><span className='hover:underline hover:text-white transition-all delay-75'>Dont have an account?</span></a>
+                <Link to="/signup" ><span className='hover:underline hover:text-white transition-all delay-75'>Dont have an account?</span></Link>
+                
 
-                <button className="btn btn-block bg">Login</button>
+                <button type='submit' className="btn btn-block bg">Login</button>
                 {/* <input type="text" placeholder='Enter Password' className='input input-bordered text-white'/> */}
                 
                 
 
             </form>
         </div>
-    </div>
+   
   )
 }
 
