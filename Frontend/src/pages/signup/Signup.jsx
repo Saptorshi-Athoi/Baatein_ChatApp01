@@ -123,8 +123,8 @@ const Signup = () => {
                 </div>
 
                 <Link to="/login" ><span className='hover:underline hover:text-white transition-all delay-75'>Already an user?</span></Link>
-
-                <button type='submit' className="btn btn-block bg">Signup</button>
+                {/* {loading ? :} */}
+                <button type='submit' className="btn btn-block bg" disabled={loading}>Signup</button>
                 {/* <input type="text" placeholder='Enter Password' className='input input-bordered text-white'/> */}
                 
                 
