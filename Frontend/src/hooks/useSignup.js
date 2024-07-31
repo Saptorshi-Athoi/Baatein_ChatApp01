@@ -1,8 +1,5 @@
 import { useContext, useState } from "react";
 import AuthContext from "../context/authContext";
-
-
-import React from 'react'
 import toast from "react-hot-toast";
 
 const useSignup = () => {

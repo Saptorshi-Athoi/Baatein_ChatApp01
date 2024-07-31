@@ -3,14 +3,17 @@ import MessageHeader from './MessageHeader'
 import Messages from './Messages'
 import MessageInput from './MessageInput'
 import NoConversation from './NoConversation'
+import useConversation from '../../zustand/useConversation'
 
 const MessageContainer = () => {
-  let pp = 1
+
+  const {selectedConversation} = useConversation()
+  let pp = !selectedConversation 
   return (
     <div className='py-2 flex-grow flex flex-col gap-3 pr-3'>
       {pp ?  <NoConversation/> :( 
         <>
-          <MessageHeader/>
+          <MessageHeader fullname={selectedConversation.fullName}/>
           <Messages/>
           <MessageInput/>
         </>
