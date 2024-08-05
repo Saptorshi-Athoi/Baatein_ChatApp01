@@ -6,7 +6,7 @@ import messageRoutes from './routes/message.route.js'
 import userRoutes from './routes/user.route.js'
 import connect  from './db/connectToDb.js';
 import cookieParser from 'cookie-parser';
-const app = express();
+import { app, server } from './socket/socket.js'
 
 dotenv.config();
 app.use(express.json());
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.send(`Server is Ready ${PORT}`)
 })
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connect()
     console.log('listening on port',PORT)
 });
